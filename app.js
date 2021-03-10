@@ -1,8 +1,8 @@
 // Calculando precios e IVAs de un producto
 const product = {
     count: 3,
-    price: 52.55,
-    type: "libros"
+    price: 12.55,
+    type: "ropa"
 };
 
 let total = product.count >= 0 ? product.count * product.price : total = 0;
@@ -10,9 +10,6 @@ let total = product.count >= 0 ? product.count * product.price : total = 0;
 let vat = 0;
 
 switch (product.type) {
-    case "ropa":
-        vat = total * 0.21;
-        break;
     case "libros":
         vat = total * 0.04;
         break;
@@ -20,22 +17,24 @@ switch (product.type) {
         vat = total * 0.1;
         break;
     default:
-        console.log("No es un producto válido");
-        break;
+            vat = total * 0.21;
+            break;
 }
 
-console.log("Total bruto: " + Math.round(total * 100) / 100)
-console.log("Total neto: " + Math.round((total - vat) * 100) / 100)
-console.log("IVA: " + Math.round(vat * 100) / 100)
+console.log("Subtotal: " + Math.round(total * 100) / 100 + " €")
+console.log("Total: " + Math.round((total + vat) * 100) / 100 + " €")
+console.log("IVA: " + Math.round(vat * 100) / 100 + " €")
 
 //Aplicando funciones para el IVA
 vat = 0
+total = 0
+
+function getTotal(product) {
+    return total = product.count >= 0 ? product.count * product.price : total = 0;
+}
 
 function getVat(product) {
     switch (product.type) {
-        case "ropa":
-            vat = 0.21;
-            break;
         case "libros":
             vat = 0.04;
             break;
@@ -43,7 +42,7 @@ function getVat(product) {
             vat = 0.1;
             break;
         default:
-            console.log("No es un producto válido");
+            vat = 0.21;
             break;
     }
     return product.price * vat;
@@ -53,14 +52,26 @@ function getTotalVat(product) {
     return product.count > 0 ? product.count * getVat(product) : 0;
 }
 
-console.log("Probando la función para extraer el IVA tenemos que el IVA por unidad es: " + Math.round(getVat(product) * 100) / 100)
-console.log("Probando la función para extraer el IVA tenemos que el IVA total es: " + Math.round(getTotalVat(product) * 100) / 100)
+console.log("Probando la función para extraer el IVA tenemos que el IVA por unidad es: " + Math.round(getVat(product) * 100) / 100 + " €")
+console.log("Probando la función para extraer el IVA tenemos que el IVA total es: " + Math.round(getTotalVat(product) * 100) / 100 + " €")
+
+function printProductPrice(product) {
+    const subtotal = Math.round(getTotal(product) * 100) / 100;
+    const vat = Math.round(getTotalVat(product) * 100) / 100;
+    const total = Math.round((subtotal + vat) * 100) / 100;
+
+    console.log("Subtotal:", subtotal + " €");
+    console.log("IVA:", vat + " €");
+    console.log("Total:", total + " €");
+}
+
+printProductPrice(product)
 
 //Calculadora de sueldos
 const empleado = {
-    bruto: 25000,
-    hijos: 0,
-    pagas: 12
+    bruto: 14500,
+    hijos: 2,
+    pagas: 14
 };
 
 let bruto = empleado.bruto;
